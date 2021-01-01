@@ -1,0 +1,23 @@
+spss yuklenecek
+
+
+araþtýrma konusu  1
+araþtýrma tasarýmý 2
+	deney tasarýmý	
+	veri toplama 
+	veri iþleme	
+		analiz	
+		modelleme
+	sonuc cýkarma
+		raporlama
+
+
+
+///////////////////////////////////////////////////////
+
+bomcu11
+
+02
+02125665bb
+
+WARRÝOR EARÝNG PENDANT SOS ROF

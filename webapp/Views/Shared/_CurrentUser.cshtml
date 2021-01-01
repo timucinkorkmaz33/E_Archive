@@ -1,0 +1,23 @@
+﻿<div class="login-info">
+    <span>
+      @{
+          if (User.IsInRole("AppAdmin") || User.IsInRole("Admin"))
+          {
+            <a href="../account" id="show-shortcut" data-action="">
+                @*<img src="~/content/img/avatars/sunny.png" alt="me" class="online" />*@
+                <span>@User.Identity.Name.ToLower()</span>
+                <i class="fa fa-angle-down"></i>
+            </a>
+          }
+          else
+          {
+            <a href="../account/changepassword" id="show-shortcut" data-action="">
+                @*<img src="~/content/img/avatars/sunny.png" alt="me" class="online" />*@
+                <span>@User.Identity.Name.ToLower()</span>
+                <i class="fa fa-angle-down"></i>
+            </a>
+          }
+    }
+        
+    </span>
+</div>

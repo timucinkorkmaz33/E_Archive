@@ -1,0 +1,345 @@
+﻿@model SmartAdminMvc.Entity.Project_General
+
+
+@using System.Web.UI.WebControls
+@using SmartAdminMvc.Entity
+
+@using SmartAdminMvc.ModelView
+@{
+
+    ViewBag.Title = "Dosya Ekleme";
+
+    List<SelectListItem> Personel = (List<SelectListItem>)ViewBag.Personel;
+
+}
+
+<style>
+    /* Center the loader */
+    .loader {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        z-index: 1;
+        width: 150px;
+        height: 150px;
+        margin: -75px 0 0 -75px;
+        border: 16px solid #f3f3f3;
+        border-radius: 50%;
+        border-top: 16px solid #3498db;
+        width: 120px;
+        height: 120px;
+        -webkit-animation: spin 2s linear infinite;
+        animation: spin 2s linear infinite;
+    }
+
+    #transparent {
+        width: auto;
+        height: auto;
+        background-color: #000000;
+        opacity: 0.6;
+        filter: alpha(opacity=60);
+    }
+
+    -webkit-keyframes spin {
+        0%;
+
+    {
+        -webkit-transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+
+    }
+
+    keyframes spin {
+        0%;
+
+    {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+
+    }
+
+    /* Add animation to "page content" */
+    .animate-bottom {
+        position: relative;
+        -webkit-animation-name: animatebottom;
+        -webkit-animation-duration: 1s;
+        animation-name: animatebottom;
+        animation-duration: 1s;
+    }
+
+    -webkit-keyframes animatebottom {
+        from;
+
+    {
+        bottom: -100px;
+        opacity: 0;
+    }
+
+    to {
+        bottom: 0px;
+        opacity: 1;
+    }
+
+    }
+
+    keyframes animatebottom {
+        from;
+
+    {
+        bottom: -100px;
+        opacity: 0;
+    }
+
+    to {
+        bottom: 0;
+        opacity: 1;
+    }
+
+    }
+</style>
+<script type="text/javascript">
+
+    function showPage() {
+        document.getElementById("xxx").style.display = "initial";
+        document.getElementById("content").style.display = "block";
+
+        $('#anadiv').css('opacity', '0.5');
+        $('#save').css('pointer-events', 'none');
+        $('#index').css('pointer-events', 'none');
+    }
+
+</script>
+
+<ol class="breadcrumb">
+    @* tüm sayfalarda bunu kullancağız. *@
+    <li class="active">Proje</li>
+
+    <li>Yeni Proje </li>
+</ol>
+
+<!-- MAIN CONTENT -->
+<div id="content">
+
+
+
+    <section id="widget-grid" class="">
+
+        <!-- row -->
+        <div class="row">
+
+            <!-- NEW WIDGET START -->
+            <article class="col-xs-12 col-sm-12 col-md-10">
+
+                <!-- Widget ID (each widget will need unique ID)-->
+                <div class="jarviswidget jarviswidget-color-blueLight" id="wid-id-4" data-widget-colorbutton="false"
+                     data-widget-editbutton="false"
+                     data-widget-togglebutton="false"
+                     data-widget-deletebutton="false"
+                     data-widget-fullscreenbutton="false"
+                     data-widget-custombutton="false">
+                    <header>
+                        <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
+                        <h2>Dosya Ekle </h2>
+
+                    </header>
+
+                    <!-- widget div-->
+                    <div>
+
+                        <!-- widget edit box -->
+                        <div class="jarviswidget-editbox">
+
+
+                        </div>
+                        <center> <div class="loader" id="xxx" style="display: none"></div></center>
+                        <div class="widget-body no-padding" id="anadiv">
+
+                            <form action="@Url.Action("Create", "Project_General")" method="POST" id="smart-form-register" enctype="multipart/form-data" class="smart-form client-form">
+
+                                @Html.AntiForgeryToken()
+                                @Html.ValidationSummary(true)
+
+
+
+                                <fieldset>
+                                    <div class="col-md-12">
+                                        <div class="form-group col-md-12">
+                                            <section class="col-lg-12">
+                                                <label class="input col-md-2">Kullanıcı Seçiniz</label>
+                                                <label class="input col-md-6">
+                                                    <input type="text" list="list" name="Owner">
+                                                    <datalist id="list">
+                                                        @Html.DropDownListFor(model => model.Owner, new SelectList(Personel, "_Text", "_strValue"), new
+                                                   {
+                                                       id = "id2",
+                                                       @class = "form-control",
+                                                       tabindex = "9",
+
+
+                                                   })
+
+                                                    </datalist>
+                                                </label>
+
+                                            </section>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-md-12">
+                                        <section class=" col-md-12">
+                                            <label class=" input col-md-2" for="Name">@Html.DisplayNameFor(model => model.Name) </label>
+                                            <div class="col-md-9 input">
+                                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", id = "phone" , @placeholder = "12345678AN123456" } })
+                                                <span class="error">@Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })</span>
+                                            </div>
+                                        </section>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <section class=" col-md-12">
+                                            <label class=" input col-md-2" for="StartDate">@Html.DisplayNameFor(model => model.StartDate) </label>
+                                            <div class="col-md-9 input">
+                                                @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control datepicker" } })
+                                                <span class="error">@Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })</span>
+                                            </div>
+                                        </section>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <section class=" col-md-12">
+                                            <label class=" input col-md-2" for="Description">@Html.DisplayNameFor(model => model.Description) </label>
+                                            <div class="col-md-9 input">
+                                                <label class="textarea">
+                                                    @Html.TextAreaFor(model => model.Description, new { name = "message", id = "message", rows = "5", htmlAttributes = new { @class = "form-control" } })
+                                                    <span class="error">@Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })</span>
+                                                </label>
+                                            </div>
+                                        </section>
+                                    </div>
+                                    @*<div class="col-md-12">
+                                        <div class="form-group col-md-12">
+                                            <section class=" col-lg-12">
+                                                <label class=" input col-md-2">@Html.DisplayNameFor(model => model.ImagePath)</label>
+                                                <div class="col-md-5 input input-file">
+                                                    @Html.EditorFor(model => model.ImagePath, new { htmlAttributes = new { @type = "file", @multiple = "multiple", @class = "form-control", id = "file", name = "file", }, name = "file" })
+
+                                                </div>
+                                            </section>
+                                        </div>
+                                    </div>*@
+                                    <div class="col-md-12">
+                                        <div class="form-group col-md-12">
+                                            <section class="col-lg-12">
+                                                <label class="input col-md-2">@Html.DisplayNameFor(model => model.Folder)</label>
+                                                <div class="col-md-5 input input-file">
+                                                    @Html.EditorFor(model => model.Folder, new { htmlAttributes = new { @type = "file", @multiple = "multiple", @class = "form-control", id = "file", name = "file", }, name = "file" })
+                                                   
+                                                </div>
+                                                <div style="" class="col-md-5">
+                                                    <div style="color:red;">&nbsp; *Lütfen Dosya Adlarını beyannameno_dosyatipi(3harf) şeklinde yükleyiniz.(örnek:12345678AN123456_FAT.png)</div>
+                                                </div>
+                                            </section>
+                                        </div>
+                                    </div>
+                                    @*<div class="col-md-12">
+                                        <div class="form-group col-md-12">
+                                            <section class="col-lg-12">
+                                                <label class="input col-md-2">@Html.DisplayNameFor(model => model.Document)</label>
+                                                <div class="col-md-5 input input-file">
+                                                    @Html.EditorFor(model => model.Document, new { htmlAttributes = new { @type = "file", @multiple = "multiple", @class = "form-control", id = "file", name = "file", }, name = "file" })
+
+                                                </div>
+                                            </section>
+                                        </div>
+                                    </div>*@
+                               
+                                   
+
+                                    @*<div class="form-group col-md-12">
+                                            <section class=" col-md-12">
+                                                <label class=" input col-md-2" for="UserName">@Html.DisplayNameFor(model => model.UserName) </label>
+                                                <div class="col-md-9 input">
+                                                    @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @type = "text", @name = "text", @class = "form-control", Value = "", placeholder = "Kullanıcı Adı" } })
+                                                    <span class="error">@Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })</span>
+                                                </div>
+                                            </section>
+                                        </div>
+                                        <div class="form-group col-md-12">
+                                            <section class=" col-md-12">
+                                                <label class=" input col-md-2" for="Pass">@Html.DisplayNameFor(model => model.Pass) </label>
+                                                <div class="col-md-9 input">
+                                                    @Html.EditorFor(model => model.Pass, new { htmlAttributes = new { @type = "password", Value = "", @name = "password", placeholder = "********", @class = "form-control" } })
+                                                    <span class="error">@Html.ValidationMessageFor(model => model.Pass, "", new { @class = "text-danger" })</span>
+                                                </div>
+                                            </section>
+                                        </div>*@
+                                </fieldset>
+
+
+
+                                <fieldset>
+                                    @*Ekranlar düzenlenecek Butonlar ustte*@
+
+                                    <div class="form-group">
+                                        <div class=" col-md-2 col-xs-3" align="center">
+                                            <a href="#" onclick="location.href = '@Url.Action("Index", "Project_General")';return false;" id="index" class="btn btn-primary btn-circle btn-lg">
+                                                <i class="glyphicon glyphicon-list"></i>
+                                            </a>
+                                        </div>
+                                        <div class="col-md-8 col-xs-6" dir="ltr">
+
+                                        </div>
+                                        <section class="col col-2">
+                                            <a onclick="showPage(); document.getElementById('smart-form-register').submit(); " id="save" class="btn btn-primary btn-circle btn-lg">
+                                                <i class="glyphicon glyphicon-ok"></i>
+                                            </a>
+                                        </section>
+                                    </div>
+                                </fieldset>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </article>
+
+        </div>
+
+        <!-- end row -->
+
+
+    </section>
+    <!-- end widget grid -->
+
+</div>
+@{
+    if (null != TempData["userMessage"])
+    {
+        <script type="text/javascript">
+            alert("Lütfen Kullanıcı Adını değiştiriniz,bu Kullanıcı Adı sistemimizde mevcuttur!");
+        </script>
+    }
+
+    if (null != TempData["success"])
+    {
+        <script type="text/javascript">
+            alert("Yükleme İşlemi Başarılı!");
+        </script>
+    }
+  
+}
+
+
+@section pagespecific {
+    <script>
+
+
+        $("#phone").mask("99999999aa999999");
+
+    </script>}

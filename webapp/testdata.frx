@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="08/03/2016 13:46:48" ReportInfo.Modified="11/01/2016 15:27:35" ReportInfo.CreatorVersion="2014.2.1.0">
+  <Dictionary>
+    <XmlDataConnection Name="testdata" ConnectionString="rijcmlqZtqvKDDnazZqDHZ7fwn3+A2xl+/UvXiraN8tyS+If4S35AFfWCLOPq4Z9xqJT3Pd" LoginPrompt="true">
+      <TableDataSource Name="message" DataType="System.Int32" Enabled="true" TableName="message">
+        <Column Name="to" DataType="System.String"/>
+        <Column Name="from" DataType="System.String"/>
+        <Column Name="heading" DataType="System.String"/>
+        <Column Name="body" DataType="System.String"/>
+      </TableDataSource>
+    </XmlDataConnection>
+    <XmlDataConnection Name="Connection" ConnectionString="rijcmlqmmfdjkQxfe1iwShBNGpudyVHu39O+eaaapZx8k0jBKBaagPqMaVv2R+GmxZLXw9OSF6txmXwTt3aa6m2I+YpLA==" LoginPrompt="true">
+      <TableDataSource Name="message1" DataType="System.Int32" Enabled="true" TableName="message">
+        <Column Name="to" DataType="System.String"/>
+        <Column Name="from" DataType="System.String"/>
+        <Column Name="heading" DataType="System.String"/>
+        <Column Name="body" DataType="System.String"/>
+      </TableDataSource>
+    </XmlDataConnection>
+  </Dictionary>
+  <ReportPage Name="Page1">
+    <ReportTitleBand Name="ReportTitle1" Width="718.2" Height="37.8"/>
+    <PageHeaderBand Name="PageHeader1" Top="41.8" Width="718.2" Height="28.35">
+      <TextObject Name="Text2" Left="37.8" Width="94.5" Height="18.9" Text="to"/>
+      <TextObject Name="Text4" Left="160.65" Width="94.5" Height="18.9" Text="from"/>
+      <TextObject Name="Text6" Left="274.05" Width="94.5" Height="18.9" Text="heading"/>
+      <TextObject Name="Text8" Left="396.9" Width="94.5" Height="18.9" Text="body"/>
+    </PageHeaderBand>
+    <DataBand Name="Data1" Top="74.15" Width="718.2" Height="75.6" DataSource="message">
+      <TextObject Name="Text1" Left="37.8" Top="9.45" Width="94.5" Height="18.9" Text="[message.to]"/>
+      <TextObject Name="Text3" Left="160.65" Top="9.45" Width="94.5" Height="18.9" Text="[message.from]"/>
+      <TextObject Name="Text5" Left="274.05" Top="9.45" Width="94.5" Height="18.9" Text="[message.heading]"/>
+      <TextObject Name="Text7" Left="396.9" Top="9.45" Width="94.5" Height="18.9" Text="[message.body]"/>
+    </DataBand>
+    <PageFooterBand Name="PageFooter1" Top="153.75" Width="718.2" Height="18.9"/>
+  </ReportPage>
+</Report>

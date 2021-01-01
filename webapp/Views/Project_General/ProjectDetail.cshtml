@@ -1,0 +1,252 @@
+﻿@model SmartAdminMvc.Entity.Project_General
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="~/Scripts/kk/Scripts/jquery.mousewheel-3.0.6.pack.js"></script>
+<script src="~/Scripts/kk/Scripts/jquery.fancybox.js?v=2.1.3"></script>
+<link href="~/Scripts/kk/Content/jquery.fancybox.css?v=2.1.2" rel="stylesheet" media="screen" />
+<link href="~/Scripts/kk/Scripts/jquery.fancybox.css" rel="stylesheet" />
+
+<div class="jumbotron">
+    <fieldset>
+        <div class=" col-md-1 " align="center" style="margin-bottom: 20px;">
+            <a href="#" onclick="location.href = '@Url.Action("Index", "Project_General")';return false;" class="btn btn-primary btn-circle btn-lg">
+                <i class="glyphicon glyphicon-arrow-left"></i>
+            </a>
+        </div>
+
+
+        <div class="form-group col-md-12">
+            <section class=" col-md-12">
+                <label class=" input col-md-2" for="Name">@Html.DisplayNameFor(model => model.Name) </label>
+                <div class="col-md-9 input">
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    <span class="error">@Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })</span>
+                </div>
+            </section>
+        </div>
+        <div class="form-group col-md-12">
+            <section class=" col-md-12">
+                <label class=" input col-md-2" for="StartDate">@Html.DisplayNameFor(model => model.StartDate) </label>
+                <div class="col-md-9 input">
+                    @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                    <span class="error">@Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })</span>
+                </div>
+            </section>
+        </div>
+        <div class="form-group col-md-12">
+            <section class=" col-md-12">
+                <label class=" input col-md-2" for="Description">@Html.DisplayNameFor(model => model.Description) </label>
+                <div class="col-md-9 input">
+                    <label class="textarea">
+                        @Html.TextAreaFor(model => model.Description, new { name = "message", id = "message", rows = "3", cols = "60", @readonly = "readonly", @style = "background:#eee;border=#cccccc;", htmlAttributes = new { @class = "form-control" } })
+                        <span class="error">@Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })</span>
+                    </label>
+                </div>
+            </section>
+        </div>
+        <div style="margin-left: 25px;" class="col-md-12">
+            <div style="color:red;"> *.rar uzantılı dosyaları açmak için Winrar programı yüklü olmalıdır.Edinmek için Lütfen <a target="_blank" href="https://winrar.tr.softonic.com/">Tıklayınız</a></div>
+        </div>
+
+        <div style="margin-left: 25px;" class="col-md-12">
+            @if (Model.DocList.Count > 0)
+            {
+                <p>
+                    <label>Dökümanlar</label>
+                </p>}
+            @*<div style="border-bottom:1px solid yellow;"></div>*@
+            @if (Model.DocList.Count > 0)
+            {
+                <div class="row-fluid">
+                    <div class="span2">
+                        <div class="item">
+                            @if (Model.DocList.Count > 0)
+                            {
+                                <div class="row-fluid">
+                                    <div class="span2">
+                                        <div class="item">
+                                            @foreach (var image in Model.DocList)
+                                            {
+                                                <div style="margin: 10px; float: left; height: 200px; overflow: hidden; width: 200px;">
+                                                    <div style="color: black;font-weight: bold">@image</div>
+                                                    @if (image.IndexOf(".JPG") != -1 || image.IndexOf(".png") != -1 || image.IndexOf(".PNG") != -1 || image.IndexOf(".jpg") != -1 || image.IndexOf(".jpeg") != -1)
+                                                    {  <a id="ShowImage" class="fancybox-button" data-rel="fancybox-button"
+                                                          title="Resim" target="_blank" href="@Url.Content("~/UploadFiles/"+Model.CompanyName+"/"  + Model.StartDate.Value.Year+"/"+Model.StartDate.Value.Month+"/"+Model.StartDate.Value.Day+"/" + Model.Name + "/" + image)">
+                                                                        <div class="zoom">
+                                                                            <img src="@Url.Content("~/UploadFiles/"+Model.CompanyName+"/"  + Model.StartDate.Value.Year+"/"+Model.StartDate.Value.Month+"/"+Model.StartDate.Value.Day+"/" + Model.Name + "/" + image)" class="imgBox" />
+                                                                            <div class="zoom-icon"></div>
+                                                                        </div>
+                                                                    </a>
+                                                    }
+                                                    else if (image.IndexOf(".rar") != -1 || image.IndexOf(".RAR") != -1)
+                                                    {  <a id="ShowImage" class="fancybox-button" data-rel="fancybox-button"
+                                                          title="Resim" target="_blank" href="@Url.Content("~/UploadFiles/"+Model.CompanyName+"/" + Model.StartDate.Value.Year+"/"+Model.StartDate.Value.Month+"/"+Model.StartDate.Value.Day+"/" + Model.Name + "/" + image)">
+                                                                        <div class="zoom">
+                                                                            <a href="@Url.Content("~/UploadFiles/" +Model.CompanyName+"/" + Model.StartDate.Value.Year+"/"+Model.StartDate.Value.Month+"/"+Model.StartDate.Value.Day+"/" + Model.Name + "/" + image)">
+                                                                                İndirmek için Tıklayınız!
+
+                                                                                <img src="~/Content/img/rar.png" style="height:140px;" class="imgBox" />
+                                                                            </a>
+                                                                            <div class="zoom-icon"></div>
+                                                                        </div>
+                                                                    </a>
+                                                    }
+                                                    else if (image.IndexOf(".txt") != -1 || image.IndexOf(".docx") != -1 || image.IndexOf(".doc") != -1)
+                                                    {  <a id="ShowImage" class="fancybox-button" data-rel="fancybox-button"
+                                                          title="Resim" target="_blank" href="@Url.Content("~/UploadFiles/"+Model.CompanyName+"/" + Model.StartDate.Value.Year+"/"+Model.StartDate.Value.Month+"/"+Model.StartDate.Value.Day+"/" + Model.Name + "/" + image)">
+                                                                        <div class="zoom">
+
+                                                                            <img src="~/Content/img/txt.png" style="height:140px;" class="imgBox" />
+                                                                            <div class="zoom-icon"></div>
+                                                                        </div>
+                                                                    </a>
+                                                    }
+                                                    else
+                                                    {<a id="ShowImage" class="fancybox-button" data-rel="fancybox-button"
+                                                        title="Resim" target="_blank" href="@Url.Content("~/UploadFiles/" +Model.CompanyName+"/" + Model.StartDate.Value.Year+"/"+Model.StartDate.Value.Month+"/"+Model.StartDate.Value.Day+"/" + Model.Name + "/" + image)">
+                                                                        <div class="zoom">
+
+                                                                            <img src="~/Content/img/cover.png" style="height:140px;" class="imgBox" />
+                                                                            <div class="zoom-icon"></div>
+                                                                        </div>
+                                                                    </a>
+
+                                                    }
+                                                </div>
+                                            }
+                                        </div>
+
+                                    </div>
+                                </div>
+                            }
+                        </div>
+
+                    </div>
+                </div>
+            }
+        </div>
+
+        <br><br><br><br><br><br><br><br><br><br><br><br><br>
+        <div style="margin-left: 25px;" class="col-md-12">
+            @if (Model.FolderList.Count > 0)
+            {
+                <p>
+                    <label>Belgeler</label>
+                </p>}
+            @*<div style="border-bottom:1px solid blue;"></div>*@
+            @if (Model.FolderList.Count > 0)
+            {
+                <div class="row-fluid">
+                    <div class="span2">
+                        <div class="item">
+                            @foreach (var image in Model.FolderList)
+                            {
+                                <div style="margin: 10px; float: left; height: 200px; overflow: hidden; width: 200px;">
+                                    <div style="color: black;font-weight: bold">@image</div>
+
+                                    @if (image.IndexOf(".JPG") != -1 || image.IndexOf(".png") != -1 || image.IndexOf(".PNG") != -1 || image.IndexOf(".jpg") != -1 || image.IndexOf(".jpeg") != -1)
+                                    {  <a id="ShowImage" class="fancybox-button" data-rel="fancybox-button"
+                                          title="Resim" href="@Url.Content("~/UploadFiles/" +Model.CompanyName+"/" + Model.StartDate.Value.Year+"/"+Model.StartDate.Value.Month+"/"+Model.StartDate.Value.Day+"/" + Model.Name + "/"  + image)">
+                                        <div class="zoom">
+                                            <img src="@Url.Content("~/UploadFiles/"+Model.CompanyName+"/" + Model.StartDate.Value.Year+"/"+Model.StartDate.Value.Month+"/"+Model.StartDate.Value.Day+"/" + Model.Name + "/"  + image)" class="imgBox" />
+                                            <div class="zoom-icon"></div>
+                                        </div>
+                                    </a>
+                                    }
+                                    else if (image.IndexOf(".rar") != -1 || image.IndexOf(".RAR") != -1)
+                                    {  <a id="ShowImage" class="fancybox-button" data-rel="fancybox-button"
+                                          title="Resim" href="@Url.Content("~/UploadFiles/" +Model.CompanyName+"/" + Model.StartDate.Value.Year+"/"+Model.StartDate.Value.Month+"/"+Model.StartDate.Value.Day+"/" + Model.Name + "/"  + image)">
+                                        <div class="zoom">
+                                            <a href="@Url.Content("~/UploadFiles/" +Model.CompanyName+"/" + Model.StartDate.Value.Year+"/"+Model.StartDate.Value.Month+"/"+Model.StartDate.Value.Day+"/" + Model.Name + "/"  + image)">
+                                                İndirmek için Tıklayınız!
+                                            </a>
+                                            @*<img src="~/Content/img/rar.png" class="imgBox" />*@
+                                            <div class="zoom-icon"></div>
+                                        </div>
+                                    </a>
+                                    }
+                                    else if (image.IndexOf(".txt") != -1 || image.IndexOf(".docx") != -1 || image.IndexOf(".doc") != -1)
+                                    {  <a id="ShowImage" class="fancybox-button" data-rel="fancybox-button"
+                                          title="Resim" href="@Url.Content("~/UploadFiles/" +Model.CompanyName+"/" + Model.StartDate.Value.Year+"/"+Model.StartDate.Value.Month+"/"+Model.StartDate.Value.Day+"/" + Model.Name + "/"  + image)">
+                                        <div class="zoom">
+                                            <img src="~/Content/img/txt.png" class="imgBox" />
+                                            <div class="zoom-icon"></div>
+                                        </div>
+                                    </a>
+                                    }
+                                    else
+                                    {<a id="ShowImage" class="fancybox-button" data-rel="fancybox-button"
+                                        title="Resim" href="@Url.Content("~/UploadFiles/" +Model.CompanyName+"/" + Model.StartDate.Value.Year+"/"+Model.StartDate.Value.Month+"/"+Model.StartDate.Value.Day+"/" + Model.Name + "/"  + image)">
+                                        <div class="zoom">
+
+                                            <img src="~/Content/img/cover.png" class="imgBox" />
+                                            <div class="zoom-icon"></div>
+                                        </div>
+                                    </a>
+
+                                    }
+                                </div>
+                            }
+                        </div>
+
+                    </div>
+                </div>
+            }
+        </div>
+
+    </fieldset>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#ShowImage").fancybox({
+            helpers:
+            {
+                title:
+                {
+                    type: 'float'
+                }
+            }
+        });
+    });
+</script>
+<style type="text/css">
+    .imgBox {
+        width: 200px;
+        height: 200px;
+        opacity: 1.0;
+        filter: alpha(opacity=100);
+    }
+
+        .imgBox:hover {
+            -moz-box-shadow: 0 0 10px #ccc;
+            -webkit-box-shadow: 0 0 10px #ccc;
+            box-shadow: 0 0 10px #ccc;
+            opacity: 0.4;
+            filter: alpha(opacity=40);
+        }
+</style>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.imageGallery').fancybox({
+            fitToView: false,
+            width: '600px',
+            height: '400px',
+            autoSize: false,
+            closeClick: false,
+            openEffect: 'none',
+            closeEffect: 'none',
+            padding: 0,
+            closeBtn: false,
+            'afterClose': function () {
+                window.location.reload();
+            },
+        });
+    });
+</script>
+
